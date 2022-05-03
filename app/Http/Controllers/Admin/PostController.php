@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->limit(20)->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -44,9 +44,33 @@ class PostController extends Controller
             'publisheder_at' => 'nullable|date|before_or_equal:today'
         ]);
 
-        // $data = $request->all();
+        // Questo il nostro slug
+        $data = $request->all();
 
-        dd($request->all());
+        $slug = str::slug($data['title']);
+        $slug_dase = $slug;
+        $counter = 1;
+
+        $post_present = Post::where('slug', $slug)->first();
+
+        while( $post_present ) {
+
+            $slug = $slug_dase . '-' . $counter;
+            $counter++;
+            $post_present = Post::where('slug', $slug)->first();
+
+        }
+
+        //----------------------------
+        $post = new Post();
+
+        $post->fill($data);
+        $post->slug = $slug;
+
+        $post->save();
+
+        return redirect()->route('admin.posts.index');
+
     }
 
     /**
