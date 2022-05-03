@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -37,7 +38,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:150|string',
+            'content' => 'required|string',
+            'publisheder_at' => 'nullable|date|before_or_equal:today'
+        ]);
+
+        // $data = $request->all();
+
+        dd($request->all());
     }
 
     /**
