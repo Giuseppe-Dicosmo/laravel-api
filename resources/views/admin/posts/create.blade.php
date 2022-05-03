@@ -16,8 +16,8 @@
     </div>
 
     <div class="form-group">
-      <label for="content">Titolo</label>
-      <textarea class="form-control @error('title') is-invalid @enderror" id="content" name="content" rows="3">{{ old('content') }}</textarea>
+      <label for="content">Testo</label>
+      <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="3">{{ old('content') }}</textarea>
       @error('content')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
@@ -25,7 +25,7 @@
 
     <div class="form-group">
       <label for="publisheder_at">Data di pubblicazione</label>
-      <input type="date" class="form-control @error('title') is-invalid @enderror" id="publisheder_at" name="publisheder_at" value="{{ old('publisheder_at') }}">
+      <input type="date" class="form-control @error('publisheder_at') is-invalid @enderror" id="publisheder_at" name="publisheder_at" value="{{ old('publisheder_at') }}">
       @error('publisheder_at')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
