@@ -33,6 +33,22 @@
       @enderror
     </div>
 
+    <div class="form-group">
+      <label for="category_id">Categoria</label>
+      <select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
+        <option value="">Seleziona</option>
+
+        @foreach($categories as $value)
+        <option value="{{ $value->id }}">{{ $value->name }}</option>
+        @endforeach
+
+      </select>
+
+      @error('category_id')
+      <div class="invalid-feedback">{{ $message }}</div>
+      @enderror
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
 
   </form>

@@ -10,6 +10,7 @@
       <th scope="col">#</th>
       <th scope="col">Titolo</th>
       <th scope="col">Slug</th>
+      <th scope="col">Categoria</th>
       <th scope="col">Data pubblicazione</th>
       <th scope="col">Data creazione</th>
       <th scope="col">Data pubblicazione</th>
@@ -21,6 +22,7 @@
       <td>{{ $value->id }}</td>
       <td>{{ $value->title }}</td>
       <td>{{ $value->slug }}</td>
+      <td>{{ $value->category ? $value->category->name : '-' }}</td>
       <td>{{ $value->publisheder_at }}</td>
       <td>{{ $value->created_at }}</td>
       <td>
