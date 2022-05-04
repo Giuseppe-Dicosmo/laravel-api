@@ -23,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->dateTime('publisheder_at')->nullable();
 
             $table->timestamps();
+
         });
     }
 
