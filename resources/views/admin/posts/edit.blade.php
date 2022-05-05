@@ -39,15 +39,28 @@
         <option value="">Seleziona</option>
 
         @foreach($categories as $value)
-        <option
-        {{ old('category_id', optional($post->category)->id ) == $value->id ? 'selected' : '' }}
-          value="{{ $value->id }}">{{ $value->name }}</option>
+        <option {{ old('category_id', optional($post->category)->id ) == $value->id ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
         @endforeach
 
       </select>
 
       @error('category_id')
       <div class="invalid-feedback">{{ $message }}</div>
+      @enderror
+    </div>
+
+
+    <label>Tag</label>
+    <div class="d-flex" style="gap: 15px;">
+      @foreach($tags as $value)
+      <div class="form-group form-check">
+        <input {{ $post->tags->contains( $value ) ? 'checked' : '' }} name="tag[]" value="{{ $value->id }}" type="checkbox" class="form-check-input" id="tags-{{ $value->id }}">
+        <label class="form-check-label" for="tags-{{ $value->id }}">{{ $value->name }}</label>
+      </div>
+      @endforeach
+
+      @error('tags')
+      <div class="text-danger">{{ $message }}</div>
       @enderror
     </div>
 

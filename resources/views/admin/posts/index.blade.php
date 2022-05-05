@@ -11,6 +11,7 @@
       <th scope="col">Titolo</th>
       <th scope="col">Slug</th>
       <th scope="col">Categoria</th>
+      <th scope="col">Tag</th>
       <th scope="col">Data pubblicazione</th>
       <th scope="col">Data creazione</th>
     </tr>
@@ -22,6 +23,11 @@
       <td>{{ $value->title }}</td>
       <td>{{ $value->slug }}</td>
       <td>{{ $value->category ? $value->category->name : '-' }}</td>
+      <td>
+        @foreach($value->tags as $tag)
+        <span class="badge badge-pill badge-info text-white">{{$tag->name}}</span>
+        @endforeach
+      </td>
       <td>{{ $value->publisheder_at }}</td>
       <td>{{ $value->created_at }}</td>
       <td>
