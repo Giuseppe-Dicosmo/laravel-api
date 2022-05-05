@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('created_at', 'desc')->limit(20)->get();
+        $posts = Post::with('category')->orderBy('created_at', 'desc')->limit(20)->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -27,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -41,7 +43,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:150|string',
             'content' => 'required|string',
-            'publisheder_at' => 'nullable|date|before_or_equal:today'
+            'publisheder_at' => 'nullable|date|before_or_equal:today',
+            'category_id' => 'required|exists:categories,id'
         ]);
 
         // Questo il nostro slug
@@ -93,7 +96,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -108,7 +112,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:150|string',
             'content' => 'required|string',
-            'publisheder_at' => 'nullable|date|before_or_equal:today'
+            'publisheder_at' => 'nullable|date|before_or_equal:today',
+            'category_id' => 'required|exists:categories,id'
         ]);
 
         $data = $request->all();

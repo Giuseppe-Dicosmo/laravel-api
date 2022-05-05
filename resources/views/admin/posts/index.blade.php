@@ -13,7 +13,6 @@
       <th scope="col">Categoria</th>
       <th scope="col">Data pubblicazione</th>
       <th scope="col">Data creazione</th>
-      <th scope="col">Data pubblicazione</th>
     </tr>
   </thead>
   <tbody>
