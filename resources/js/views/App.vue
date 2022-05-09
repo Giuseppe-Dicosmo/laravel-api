@@ -1,5 +1,5 @@
 <template >
-  <div>
+  <div class="app bg-slate-200">
     <PostsGrid />
   </div>
 </template>
@@ -17,5 +17,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.app {
+  min-height: 100vh;
+}
 
 </style>
