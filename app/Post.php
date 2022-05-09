@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -23,6 +24,20 @@ class Post extends Model
 
     public function tags() {
         return $this->belongsToMany('App\Tag');
+    }
+
+    public function getDate( $passDate ) {
+
+        if ($passDate) {
+
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $passDate);
+            return $date->format('d/m/Y');
+
+        } else {
+            return Carbon::now()->format('d/m/Y');
+        }
+
+
     }
 
     public static function getUniqueSlug( $title ) {

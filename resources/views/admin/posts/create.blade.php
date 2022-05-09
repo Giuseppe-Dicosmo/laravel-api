@@ -53,14 +53,14 @@
 
     <label>Tag</label>
     <div class="d-flex" style="gap: 15px;">
-      @foreach($tags as $value)
+      @foreach($tags as $index => $value)
       <div class="form-group form-check">
-        <input name="tag[]" value="{{ $value->id }}" type="checkbox" class="form-check-input" id="tags-{{ $value->id }}">
+        <input name="tag[ {{ $index }} ]" value="{{ $value->id }}" type="checkbox" class="form-check-input" id="tags-{{ $value->id }}">
         <label class="form-check-label" for="tags-{{ $value->id }}">{{ $value->name }}</label>
       </div>
       @endforeach
 
-      @error('tags')
+      @error('tags.{{ $index }}')
       <div class="text-danger">{{ $message }}</div>
       @enderror
     </div>

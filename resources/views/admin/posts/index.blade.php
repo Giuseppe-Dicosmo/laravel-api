@@ -14,6 +14,8 @@
       <th scope="col">Tag</th>
       <th scope="col">Data pubblicazione</th>
       <th scope="col">Data creazione</th>
+      <th scope="col">Data modifica</th>
+
     </tr>
   </thead>
   <tbody>
@@ -28,8 +30,9 @@
         <span class="badge badge-pill badge-info text-white">{{$tag->name}}</span>
         @endforeach
       </td>
-      <td>{{ $value->publisheder_at }}</td>
-      <td>{{ $value->created_at }}</td>
+      <td>{{ $value->publisheder_at ? Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->publisheder_at)->diffForHumans() : '-> null <-' }}</td>
+      <td>{{ $value->getDate($value->created_at) }}</td>
+      <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->updated_at)->locale('it-IT')->diffForHumans() }}</td>
       <td>
         <a class="btn btn-success" href="{{ route('admin.posts.edit', $value) }}">Modifica</a>
       </td>

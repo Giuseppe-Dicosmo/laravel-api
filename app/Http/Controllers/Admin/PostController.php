@@ -47,7 +47,7 @@ class PostController extends Controller
             'content' => 'required|string',
             'publisheder_at' => 'nullable|date|before_or_equal:today',
             'category_id' => 'required|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags.*' => 'nullable|exists:tags,id'
         ]);
 
         // Questo il nostro slug che sta nel model
@@ -118,7 +118,7 @@ class PostController extends Controller
             'content' => 'required|string',
             'publisheder_at' => 'nullable|date|before_or_equal:today',
             'category_id' => 'required|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags.*' => 'nullable|exists:tags,id'
         ]);
 
         $data = $request->all();
@@ -128,9 +128,10 @@ class PostController extends Controller
         }
 
         if ( array_key_exists('tags', $data) ) {
-            $post->tags()->sync( $data['tags'] );
+            $post->tags()->sync( $data['tags.*'] );
+            dd('tags.*');
         } else {
-            $post->tags()->detach();
+            $post->tags()->sync([]);
         }
 
 
