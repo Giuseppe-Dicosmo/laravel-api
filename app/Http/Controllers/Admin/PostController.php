@@ -128,8 +128,7 @@ class PostController extends Controller
         }
 
         if ( array_key_exists('tags', $data) ) {
-            $post->tags()->sync( $data['tags.*'] );
-            dd('tags.*');
+            $post->tags()->sync( $data['tags'] );
         } else {
             $post->tags()->sync([]);
         }
