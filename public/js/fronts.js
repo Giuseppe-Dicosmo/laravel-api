@@ -1923,6 +1923,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     post: {
@@ -1976,6 +1986,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1983,20 +2012,33 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      lastPage: 0,
+      currentPage: 1
     };
   },
   methods: {
     // fetchPosts() e una funzione
+    // creiamo  @click="fetchPosts(numeri)" cosi cambiera la nostra pagina
     fetchPosts: function fetchPosts() {
       var _this = this;
 
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       // inseriamo la nostra rotta
-      axios.get("/api/posts").then(function (res) {
+      axios.get("/api/posts", {
+        params: {
+          page: page
+        }
+      }).then(function (res) {
         // Destrutturazione
-        var posts = res.data.posts; // Puoi chiamiamo l'array (posts: []) posts
+        var posts = res.data.posts;
+        var data = posts.data,
+            last_page = posts.last_page,
+            current_page = posts.current_page; // Puoi chiamiamo nel data l'array (posts: []) posts
 
-        _this.posts = posts;
+        _this.posts = data;
+        _this.lastPage = last_page;
+        _this.currentPage = current_page;
       })["catch"](function (err) {
         console.warn(err);
       });
@@ -3137,28 +3179,53 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card post" }, [
-    _c("div", { staticClass: "card__body" }, [
-      _c("h4", { staticClass: "post__title" }, [
-        _vm._v(_vm._s(_vm.post.title)),
+  return _c(
+    "div",
+    {
+      staticClass: "card post rounded-lg border border-white bg-slate-300 p-3",
+    },
+    [
+      _c("img", {
+        staticClass: "w-full object-cover",
+        attrs: { src: "https://picsum.photos/450/250", alt: "" },
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "card__body p-2" }, [
+        _c("h4", { staticClass: "post__title text-xl" }, [
+          _vm._v(_vm._s(_vm.post.title)),
+        ]),
+        _vm._v(" "),
+        _vm.post.category
+          ? _c("p", { staticClass: "text-sky-800" }, [
+              _vm._v(
+                "\n            " + _vm._s(_vm.post.category.name) + "\n        "
+              ),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "ul",
+          { staticClass: "tags flex gap-3 items-center" },
+          _vm._l(_vm.post.tags, function (tag) {
+            return _c(
+              "li",
+              {
+                key: tag.id,
+                staticClass:
+                  "tag text-black bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full text-xs px-3 py-1",
+              },
+              [
+                _vm._v(
+                  "\n                " + _vm._s(tag.name) + "\n            "
+                ),
+              ]
+            )
+          }),
+          0
+        ),
       ]),
-      _vm._v(" "),
-      _vm.post.category
-        ? _c("p", [_vm._v(_vm._s(_vm.post.category.name))])
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "ul",
-        { staticClass: "tags" },
-        _vm._l(_vm.post.tags, function (tag) {
-          return _c("li", { key: tag.id, staticClass: "tag" }, [
-            _vm._v("\n                " + _vm._s(tag.name) + "\n            "),
-          ])
-        }),
-        0
-      ),
-    ]),
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -3212,10 +3279,41 @@ var render = function () {
       staticClass:
         "container grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4",
     },
-    _vm._l(_vm.posts, function (el) {
-      return _c("PostCard", { key: el.id, attrs: { post: el } })
-    }),
-    1
+    [
+      _vm._l(_vm.posts, function (el) {
+        return _c("PostCard", { key: el.id, attrs: { post: el } })
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container bg-black py-3" }, [
+        _c(
+          "ul",
+          { staticClass: "pagination flex justify-center items-center gap-5" },
+          _vm._l(_vm.lastPage, function (numeri) {
+            return _c(
+              "li",
+              {
+                key: numeri,
+                staticClass:
+                  "cursor-pointer rounded-full text-white text-xs px-2 py-1",
+                class: [
+                  _vm.currentPage === numeri
+                    ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                    : "dot bg-gradient-to-r from-cyan-500 to-blue-500",
+                ],
+                on: {
+                  click: function ($event) {
+                    return _vm.fetchPosts(numeri)
+                  },
+                },
+              },
+              [_vm._v("\n                " + _vm._s(numeri) + "\n            ")]
+            )
+          }),
+          0
+        ),
+      ]),
+    ],
+    2
   )
 }
 var staticRenderFns = []

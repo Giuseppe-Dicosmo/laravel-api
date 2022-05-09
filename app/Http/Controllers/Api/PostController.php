@@ -15,7 +15,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['category', 'tags'])->limit(12)->get();
+        $posts = Post::with(['category', 'tags'])
+        ->where('publisheder_at', '!=', null)
+        ->orderBy('publisheder_at', 'desc')
+        //  creiamo che ogni pagina deve avere 12 post
+        ->paginate(12);
 
         return response()->json([
             'posts' => $posts,
