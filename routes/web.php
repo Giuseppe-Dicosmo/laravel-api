@@ -28,3 +28,12 @@ Route::middleware('auth')
     Route::resource('/posts', 'PostController')->except(['show']);
 });
 
+
+// Route::get('{any?}', function () {
+//     return view('guest.home');
+// })->where('any', '.*');
+
+Route::fallback(function() {
+    return view('guest.home');
+});
+
