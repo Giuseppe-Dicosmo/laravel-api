@@ -2005,6 +2005,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3273,48 +3276,48 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass:
-        "container grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4",
-    },
-    [
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass:
+          "container grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4",
+      },
       _vm._l(_vm.posts, function (el) {
         return _c("PostCard", { key: el.id, attrs: { post: el } })
       }),
-      _vm._v(" "),
-      _c("div", { staticClass: "container bg-black py-3" }, [
-        _c(
-          "ul",
-          { staticClass: "pagination flex justify-center items-center gap-5" },
-          _vm._l(_vm.lastPage, function (numeri) {
-            return _c(
-              "li",
-              {
-                key: numeri,
-                staticClass:
-                  "cursor-pointer rounded-full text-white text-xs px-2 py-1",
-                class: [
-                  _vm.currentPage === numeri
-                    ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-                    : "dot bg-gradient-to-r from-cyan-500 to-blue-500",
-                ],
-                on: {
-                  click: function ($event) {
-                    return _vm.fetchPosts(numeri)
-                  },
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "container w-full py-3" }, [
+      _c(
+        "ul",
+        { staticClass: "pagination flex justify-center items-center gap-5" },
+        _vm._l(_vm.lastPage, function (numeri) {
+          return _c(
+            "li",
+            {
+              key: numeri,
+              staticClass:
+                "cursor-pointer rounded-full text-white text-xs px-2 py-1",
+              class: [
+                _vm.currentPage === numeri
+                  ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                  : "dot bg-gradient-to-r from-cyan-500 to-blue-500",
+              ],
+              on: {
+                click: function ($event) {
+                  return _vm.fetchPosts(numeri)
                 },
               },
-              [_vm._v("\n                " + _vm._s(numeri) + "\n            ")]
-            )
-          }),
-          0
-        ),
-      ]),
-    ],
-    2
-  )
+            },
+            [_vm._v("\n                " + _vm._s(numeri) + "\n            ")]
+          )
+        }),
+        0
+      ),
+    ]),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
